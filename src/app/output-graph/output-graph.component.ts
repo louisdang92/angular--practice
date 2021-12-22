@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { HttpClient } from '@angular/common/http';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -17,6 +18,8 @@ noData(Highcharts);
   styleUrls: ['./output-graph.component.css'],
 })
 export class OutputGraphComponent implements OnInit {
+  totalAngularPackages: any;
+
   public options: any = {
     title: {
       text: 'Solar Employment Growth by Sector, 2010-2016',
@@ -93,9 +96,14 @@ export class OutputGraphComponent implements OnInit {
       ],
     },
   };
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     Highcharts.chart('container', this.options);
+    this.http
+      .get<any>('https://api.alternative.me/fng/?date_format=us')
+      .subscribe((data) => {
+        this.totalAngularPackages = data.data[0].value_classification;
+      });
   }
 }
