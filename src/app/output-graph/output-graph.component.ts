@@ -96,7 +96,7 @@ export class OutputGraphComponent implements OnInit {
       ],
     },
   };
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   ngOnInit() {
     Highcharts.chart('container', this.options);
