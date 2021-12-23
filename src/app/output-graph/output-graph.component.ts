@@ -100,10 +100,5 @@ export class OutputGraphComponent implements OnInit {
 
   ngOnInit() {
     Highcharts.chart('container', this.options);
-    this.http
-      .get<any>('https://api.alternative.me/fng/?date_format=us')
-      .subscribe((data) => {
-        this.totalAngularPackages = data.data[0].value_classification;
-      });
   }
 }
